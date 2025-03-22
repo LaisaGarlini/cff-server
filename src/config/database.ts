@@ -1,7 +1,13 @@
 import { Sequelize } from 'sequelize-typescript';
+import { Usuario } from '../models/usuario';
+import { inserirDadosPadrao } from '../scripts/inserirDadosPadrao';
 import dotenv from 'dotenv';
+import { UsuarioRepository } from '../repositories/usuario.repository';
 
 dotenv.config();
+
+const isDev = process.env.NODE_ENV === 'development';
+const deveRecriarTabelas = isDev && process.env.RECRIAR_TABELAS === 'true';
 
 const sequelize = new Sequelize({
   database: process.env.DB_NAME,
@@ -10,8 +16,27 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432', 10),
+  models: [Usuario],
   logging: false,
 //   logging: isDev ? console.log : false,
 });
+
+async function sincronizarBancoDeDados() {
+  try {
+    // await sequelize.authenticate();
+    await sequelize.sync({ force: deveRecriarTabelas });
+    console.log('Banco de dados sincronizado.');
+    if (deveRecriarTabelas) {
+      console.log('Tabelas recriadas. Inserindo dados padrão...');
+
+      const usuarioRepository = new UsuarioRepository;
+      const usuario = await usuarioRepository.create('Teste');
+    }
+  } catch (error) {
+    console.error('Erro ao sincronizar o banco de dados:', error);
+  }
+}
+
+sincronizarBancoDeDados();
 
 export { sequelize };
