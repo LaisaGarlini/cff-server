@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import { sequelize } from './config/database';
 
 dotenv.config();
 
@@ -13,4 +14,18 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+
+async function testarConexao() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexão com o banco de dados estabelecida com sucesso.');
+  } catch (error) {
+    console.error('Erro ao conectar ao banco de dados:', error);
+  } finally {
+    await sequelize.close();
+  }
+}
+
+testarConexao();
