@@ -1,14 +1,13 @@
-import { UsuarioRepository } from '../repositories/usuario.repository';
+import { UsuarioRepository } from '../repositories/usuario.repository'
 
 async function inserirDadosPadrao() {
-    const usuarioRepository = new UsuarioRepository;
-  try {
-    const usuario = await usuarioRepository.create('Teste')
+    try {
+        const usuario = await UsuarioRepository.create('Teste')
 
-    console.log('Dados padrão inseridos com sucesso.');
-  } catch (error) {
-    console.error('Erro ao inserir dados padrão:', error);
-  }
+        console.log('Dados padrão inseridos com sucesso.')
+    } catch (error) {
+        console.error('Erro ao inserir dados padrão:', error)
+    }
 }
 
-export { inserirDadosPadrao };
+export { inserirDadosPadrao }

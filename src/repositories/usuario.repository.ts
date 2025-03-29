@@ -1,38 +1,38 @@
-import { UsuarioDto } from '../dtos/usuario';
-import { Usuario } from '../models/usuario';
+import { UsuarioDto } from '../dtos/usuario'
+import { Usuario } from '../models/usuario'
 
 export const UsuarioRepository = {
     async findAll(): Promise<UsuarioDto[]> {
-        return await Usuario.findAll();
+        return await Usuario.findAll()
     },
 
     async findById(id: number): Promise<UsuarioDto | null> {
-        return await Usuario.findByPk(id);
+        return await Usuario.findByPk(id)
     },
 
     async create(data: Omit<UsuarioDto, 'id'>): Promise<UsuarioDto> {
-        return await Usuario.create(data);
+        return await Usuario.create(data)
     },
 
     async update(data: Partial<UsuarioDto>): Promise<boolean> {
-        const usuarioInstance = await Usuario.findByPk(data.id);
+        const usuarioInstance = await Usuario.findByPk(data.id)
 
         if (usuarioInstance) {
-            await usuarioInstance.update(data);
-            return true;
+            await usuarioInstance.update(data)
+            return true
         }
 
-        return false;
+        return false
     },
 
     async delete(id: number): Promise<boolean> {
-        const usuarioInstance = await Usuario.findByPk(id);
+        const usuarioInstance = await Usuario.findByPk(id)
 
         if (usuarioInstance) {
-            await usuarioInstance.destroy();
-            return true;
+            await usuarioInstance.destroy()
+            return true
         }
 
-        return false;
+        return false
     },
-};
+}

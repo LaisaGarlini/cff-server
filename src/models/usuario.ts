@@ -1,16 +1,15 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, AllowNull } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, Unique, AllowNull } from 'sequelize-typescript'
 
 @Table({
-  tableName: 'usuario',
+    tableName: 'usuario',
 })
 export class Usuario extends Model {
+    @PrimaryKey
+    @AutoIncrement
+    @Column(DataType.INTEGER)
+    id!: number
 
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  id!: number;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  nome!: string;
+    @AllowNull(false)
+    @Column(DataType.STRING)
+    nome!: string
 }
