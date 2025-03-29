@@ -4,13 +4,14 @@ import dotenv from 'dotenv';
 import { sequelize } from './config/database';
 import UsuarioRoutes from './routes/usuario.routes';
 import CategoriaRoutes from './routes/categoria.routes';
+import BancoRoutes from './routes/banco.routes';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(UsuarioRoutes, CategoriaRoutes);
+app.use(UsuarioRoutes, CategoriaRoutes, BancoRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello from backend!');

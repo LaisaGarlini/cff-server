@@ -1,10 +1,8 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Usuario } from '../models/usuario';
-import { inserirDadosPadrao } from '../scripts/inserirDadosPadrao';
 import dotenv from 'dotenv';
-import { UsuarioRepository } from '../repositories/usuario.repository';
-import { CategoriaRepository } from '../repositories/categoria.repository';
 import { Categoria } from '../models/categoria';
+import { Banco } from '../models/banco';
 
 dotenv.config();
 
@@ -18,7 +16,7 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432', 10),
-  models: [Usuario, Categoria],
+  models: [Usuario, Categoria, Banco],
   logging: false,
 //   logging: isDev ? console.log : false,
 });
@@ -37,6 +35,11 @@ async function sincronizarBancoDeDados() {
   
       const categoria = await Categoria.create({
         nome: 'Categoria de Teste',
+        usuario_id: usuario.id,
+      });
+
+      const banco = await Banco.create({
+        nome: 'Banco de Teste',
         usuario_id: usuario.id,
       });
     }
