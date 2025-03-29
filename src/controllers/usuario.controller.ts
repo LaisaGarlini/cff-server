@@ -2,16 +2,18 @@ import { Request, Response } from 'express';
 import { UsuarioRepository } from '../repositories/usuario.repository';
 import { UsuarioDto } from '../dtos/usuario';
 
-const usuarioRepository = new UsuarioRepository();
-
-export class UsuarioController {
+class UsuarioController {
   async create(req: Request, res: Response): Promise<void> {
     try {
       const { nome }: UsuarioDto = req.body;
+
       if (!nome) {
-        res.status(400).json({ message: 'Nome é obrigatório'})
+        res.status(400).json({ message: 'Nome é obrigatório' });
+        return;
       }
-      const usuario = await usuarioRepository.create(nome);
+
+      // Crie o objeto conforme esperado pelo repositório
+      const usuario = await UsuarioRepository.create({ nome });
       res.status(201).json(usuario);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao criar o usuário', error });
@@ -20,7 +22,7 @@ export class UsuarioController {
 
   async findAll(req: Request, res: Response): Promise<void> {
     try {
-      const usuarios = await usuarioRepository.findAll();
+      const usuarios = await UsuarioRepository.findAll();
       res.status(200).json(usuarios);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao listar os usuários', error });
@@ -30,7 +32,8 @@ export class UsuarioController {
   async findById(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const usuario = await usuarioRepository.findById(Number(id));
+      const usuario = await UsuarioRepository.findById(Number(id));
+
       if (!usuario) {
         res.status(404).json({ message: 'Usuário não encontrado' });
       } else {
@@ -45,11 +48,14 @@ export class UsuarioController {
     try {
       const { id } = req.params;
       const { nome }: UsuarioDto = req.body;
-      const [updatedCount, updatedUsuarios] = await usuarioRepository.update(Number(id), nome);
-      if (updatedCount === 0) {
+
+      // Corrigido para retornar um valor booleano
+      const updated = await UsuarioRepository.update({ id: Number(id), nome });
+
+      if (!updated) {
         res.status(404).json({ message: 'Usuário não encontrado' });
       } else {
-        res.status(200).json(updatedUsuarios);
+        res.status(200).json({ message: 'Usuário atualizado com sucesso' });
       }
     } catch (error) {
       res.status(500).json({ message: 'Erro ao atualizar o usuário', error });
@@ -59,8 +65,9 @@ export class UsuarioController {
   async delete(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const deletedCount = await usuarioRepository.delete(Number(id));
-      if (deletedCount === 0) {
+      const deleted = await UsuarioRepository.delete(Number(id));
+
+      if (!deleted) {
         res.status(404).json({ message: 'Usuário não encontrado' });
       } else {
         res.status(200).json({ message: 'Usuário deletado com sucesso' });
@@ -70,3 +77,5 @@ export class UsuarioController {
     }
   }
 }
+
+export default new UsuarioController();

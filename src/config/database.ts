@@ -3,6 +3,8 @@ import { Usuario } from '../models/usuario';
 import { inserirDadosPadrao } from '../scripts/inserirDadosPadrao';
 import dotenv from 'dotenv';
 import { UsuarioRepository } from '../repositories/usuario.repository';
+import { CategoriaRepository } from '../repositories/categoria.repository';
+import { Categoria } from '../models/categoria';
 
 dotenv.config();
 
@@ -16,7 +18,7 @@ const sequelize = new Sequelize({
   password: process.env.DB_PASSWORD,
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || '5432', 10),
-  models: [Usuario],
+  models: [Usuario, Categoria],
   logging: false,
 //   logging: isDev ? console.log : false,
 });
@@ -29,8 +31,14 @@ async function sincronizarBancoDeDados() {
     if (deveRecriarTabelas) {
       console.log('Tabelas recriadas. Inserindo dados padrão...');
 
-      const usuarioRepository = new UsuarioRepository;
-      const usuario = await usuarioRepository.create('Teste');
+      const usuario = await Usuario.create({
+        nome: 'Usuário de Teste',
+      });
+  
+      const categoria = await Categoria.create({
+        nome: 'Categoria de Teste',
+        usuario_id: usuario.id,
+      });
     }
   } catch (error) {
     console.error('Erro ao sincronizar o banco de dados:', error);

@@ -1,24 +1,38 @@
 import { UsuarioDto } from '../dtos/usuario';
 import { Usuario } from '../models/usuario';
 
-export class UsuarioRepository {
-  async create(nome: string): Promise<Usuario> {
-    return Usuario.create({nome});
-  }
+export const UsuarioRepository = {
+    async findAll(): Promise<UsuarioDto[]> {
+        return await Usuario.findAll();
+    },
 
-  async findAll(): Promise<Usuario[]> {
-    return Usuario.findAll();
-  }
+    async findById(id: number): Promise<UsuarioDto | null> {
+        return await Usuario.findByPk(id);
+    },
 
-  async findById(id: number): Promise<Usuario | null> {
-    return Usuario.findByPk(id);
-  }
+    async create(data: Omit<UsuarioDto, 'id'>): Promise<UsuarioDto> {
+        return await Usuario.create(data);
+    },
 
-  async update(id: number, nome: string): Promise<number[]> {
-    return await Usuario.update({ nome }, { where: { id } });
-  }
+    async update(data: Partial<UsuarioDto>): Promise<boolean> {
+        const usuarioInstance = await Usuario.findByPk(data.id);
 
-  async delete(id: number): Promise<number> {
-    return Usuario.destroy({ where: { id } });
-  }
-}
+        if (usuarioInstance) {
+            await usuarioInstance.update(data);
+            return true;
+        }
+
+        return false;
+    },
+
+    async delete(id: number): Promise<boolean> {
+        const usuarioInstance = await Usuario.findByPk(id);
+
+        if (usuarioInstance) {
+            await usuarioInstance.destroy();
+            return true;
+        }
+
+        return false;
+    },
+};
