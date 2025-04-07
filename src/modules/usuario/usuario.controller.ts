@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { UsuarioRepository } from '../repositories/usuario.repository'
-import { UsuarioDto } from '../dtos/usuario'
+import { UsuarioRepository } from './usuario.repository'
+import { UsuarioDto } from './usuario.dto'
 
 class UsuarioController {
     async create(req: Request, res: Response): Promise<void> {

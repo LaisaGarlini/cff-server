@@ -1,5 +1,5 @@
-import { CategoriaDto } from '../dtos/categoria'
-import { Categoria } from '../models/categoria'
+import { CategoriaDto } from './categoria.dto'
+import { Categoria } from './categoria.model'
 
 export const CategoriaRepository = {
     async findAll(): Promise<CategoriaDto[]> {

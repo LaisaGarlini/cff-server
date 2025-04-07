@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { CategoriaRepository } from '../repositories/categoria.repository'
+import { CategoriaRepository } from './categoria.repository'
 
 class CategoriaController {
     async findAll(req: Request, res: Response): Promise<void> {

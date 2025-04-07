@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import UsuarioController from '../controllers/usuario.controller'
-import { UsuarioRepository } from '../repositories/usuario.repository'
+import UsuarioController from './usuario.controller'
+import { UsuarioRepository } from './usuario.repository'
 
 jest.mock('../repositories/usuario.repository')
 

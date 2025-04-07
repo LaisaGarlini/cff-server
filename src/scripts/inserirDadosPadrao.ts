@@ -1,4 +1,4 @@
-import { UsuarioRepository } from '../repositories/usuario.repository'
+import { UsuarioRepository } from '../modules/usuario/usuario.repository'
 
 async function inserirDadosPadrao() {
     try {

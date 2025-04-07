@@ -2,16 +2,18 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import { sequelize } from './config/database'
-import UsuarioRoutes from './routes/usuario.routes'
-import CategoriaRoutes from './routes/categoria.routes'
-import BancoRoutes from './routes/banco.routes'
+import UsuarioRoutes from './modules/usuario/usuario.routes'
+import BancoRoutes from './modules/banco/banco.routes'
+import AgenciaRoutes from './modules/agencia/agencia.routes'
+import CategoriaRoutes from './modules/categoria/categoria.routes'
+import ContaFinanceiraRoutes from './modules/conta_financeira/conta_financeira.routes'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 app.use(cors())
-app.use(UsuarioRoutes, CategoriaRoutes, BancoRoutes)
+app.use(UsuarioRoutes, BancoRoutes, AgenciaRoutes, ContaFinanceiraRoutes, CategoriaRoutes)
 
 app.get('/', (req, res) => {
     res.send('Hello from backend!')

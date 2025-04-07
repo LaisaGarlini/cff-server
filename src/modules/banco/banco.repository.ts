@@ -1,5 +1,5 @@
-import { BancoDto } from '../dtos/banco'
-import { Banco } from '../models/banco'
+import { BancoDto } from './banco.dto'
+import { Banco } from './banco.model'
 
 export const BancoRepository = {
     async findAll(): Promise<BancoDto[]> {

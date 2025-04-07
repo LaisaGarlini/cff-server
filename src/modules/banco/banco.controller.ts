@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { BancoRepository } from '../repositories/banco.repository'
+import { BancoRepository } from './banco.repository'
 
 class BancoController {
     async findAll(req: Request, res: Response): Promise<void> {

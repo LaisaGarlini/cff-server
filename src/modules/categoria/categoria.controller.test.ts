@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import CategoriaController from '../controllers/categoria.controller'
-import { CategoriaRepository } from '../repositories/categoria.repository'
+import CategoriaController from './categoria.controller'
+import { CategoriaRepository } from './categoria.repository'
 
 jest.mock('../repositories/categoria.repository')
 

@@ -1,5 +1,5 @@
-import { UsuarioDto } from '../dtos/usuario'
-import { Usuario } from '../models/usuario'
+import { UsuarioDto } from './usuario.dto'
+import { Usuario } from './usuario.model'
 
 export const UsuarioRepository = {
     async findAll(): Promise<UsuarioDto[]> {
