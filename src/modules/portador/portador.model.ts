@@ -1,6 +1,6 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, Default, DataType } from 'sequelize-typescript'
-import { Usuario } from '../modules/usuario/usuario.model'
-import { ContaFinanceira } from '../modules/conta_financeira/conta_financeira.model'
+import { Usuario } from '../usuario/usuario.model'
+import { ContaFinanceira } from '../conta_financeira/conta_financeira.model'
 
 @Table({
     tableName: 'portador',

@@ -1,7 +1,8 @@
 import { Table, Column, Model, ForeignKey, BelongsTo, Default, DataType, Scopes, BeforeCreate, BeforeUpdate } from 'sequelize-typescript'
-import { Usuario } from '../modules/usuario/usuario.model'
-import { ContaFinanceira } from '../modules/conta_financeira/conta_financeira.model'
+import { Usuario } from '../usuario/usuario.model'
+import { ContaFinanceira } from '../conta_financeira/conta_financeira.model'
 import { Op } from 'sequelize'
+import { Bandeira } from '../bandeira/bandeira.model'
 
 @Table({
     tableName: 'cartao',
@@ -38,6 +39,13 @@ export class Cartao extends Model {
     })
     conta_financeira_id!: number
 
+    @ForeignKey(() => Bandeira)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    bandeira_id!: number
+
     @Column({
         type: DataType.STRING(100),
         allowNull: false,
@@ -70,6 +78,9 @@ export class Cartao extends Model {
 
     @BelongsTo(() => ContaFinanceira)
     conta_financeira!: ContaFinanceira
+
+    @BelongsTo(() => Bandeira)
+    bandeira!: Bandeira
 
     @BeforeCreate
     @BeforeUpdate

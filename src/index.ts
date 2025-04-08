@@ -7,13 +7,29 @@ import BancoRoutes from './modules/banco/banco.routes'
 import AgenciaRoutes from './modules/agencia/agencia.routes'
 import CategoriaRoutes from './modules/categoria/categoria.routes'
 import ContaFinanceiraRoutes from './modules/conta_financeira/conta_financeira.routes'
+import CartaoRoutes from './modules/cartao/cartao.routes'
+import PortadorRoutes from './modules/portador/portador.routes'
+import PortadorCartaoRoutes from './modules/portador_cartao/portador_cartao.routes'
+import BandeiraRoutes from './modules/bandeira/bandeira.routes'
+import SubcategoriaRoutes from './modules/subcategoria/subcategoria.routes'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 app.use(cors())
-app.use(UsuarioRoutes, BancoRoutes, AgenciaRoutes, ContaFinanceiraRoutes, CategoriaRoutes)
+app.use(
+    UsuarioRoutes,
+    BancoRoutes,
+    AgenciaRoutes,
+    ContaFinanceiraRoutes,
+    BandeiraRoutes,
+    CartaoRoutes,
+    PortadorRoutes,
+    PortadorCartaoRoutes,
+    CategoriaRoutes,
+    SubcategoriaRoutes,
+)
 
 app.get('/', (req, res) => {
     res.send('Hello from backend!')

@@ -12,7 +12,6 @@ class UsuarioController {
                 return
             }
 
-            // Crie o objeto conforme esperado pelo repositório
             const usuario = await UsuarioRepository.create({ nome })
             res.status(201).json(usuario)
         } catch (error) {
@@ -49,7 +48,6 @@ class UsuarioController {
             const { id } = req.params
             const { nome }: UsuarioDto = req.body
 
-            // Corrigido para retornar um valor booleano
             const updated = await UsuarioRepository.update({ id: Number(id), nome })
 
             if (!updated) {
